@@ -1,5 +1,18 @@
 import type { Metadata } from 'next'
+import { JetBrains_Mono, Orbitron } from 'next/font/google'
 import './globals.css'
+
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  weight: ['700', '900'],
+  variable: '--font-orbitron',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-jetbrains-mono',
+})
 
 export const metadata: Metadata = {
   title: '@snaity',
@@ -12,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${orbitron.variable} ${jetbrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   )
