@@ -30,11 +30,44 @@ const accent: Record<Accent, { border: string; text: string; iconBg: string }> =
   },
 }
 
-const tags: { label: string; accent: Accent }[] = [
-  { label: 'DEV', accent: 'cyan' },
-  { label: 'GAMES', accent: 'indigo' },
-  { label: 'TECH', accent: 'fuchsia' },
-  { label: 'MUSIC', accent: 'pink' },
+const tags: { label: string; accent: Accent; icon: React.ReactNode }[] = [
+  {
+    label: 'DEV',
+    accent: 'cyan',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5.5l-3 13" />
+      </svg>
+    ),
+  },
+  {
+    label: 'GAMES',
+    accent: 'indigo',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 9h1m4 0h1M7.5 7.5v3M17.5 8.5h.01M15 11.5h.01M6.5 6h11a3 3 0 0 1 2.95 2.47l1 5.5A2.5 2.5 0 0 1 19 17.5c-.9 0-1.72-.5-2.14-1.3L16 14.5H8l-.86 1.7A2.4 2.4 0 0 1 5 17.5a2.5 2.5 0 0 1-2.46-3.03l1-5.5A3 3 0 0 1 6.5 6Z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'TECH',
+    accent: 'fuchsia',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
+        <rect x="4" y="5" width="16" height="10.5" rx="1.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.5 19h19M10 19l.5-3h3l.5 3" />
+      </svg>
+    ),
+  },
+  {
+    label: 'MUSIC',
+    accent: 'pink',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
+        <path d="M9 3v10.55A4 4 0 1 0 11 17V7h5V3H9Z" />
+      </svg>
+    ),
+  },
 ]
 
 type LinkItem = {
@@ -236,10 +269,19 @@ export default function Home() {
   const year = new Date().getFullYear()
 
   return (
-    <main className="flex min-h-screen flex-col items-center px-6 py-16">
+    <main className="relative flex min-h-screen flex-col items-center overflow-hidden px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-top opacity-70"
+        style={{ backgroundImage: "url('/background.jpg')" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0a0a0b]/10 via-[#0a0a0b]/80 to-[#0a0a0b]"
       />
       <div className="flex w-full max-w-md flex-col items-center">
         <div className="rounded-full bg-gradient-to-br from-cyan-400 via-indigo-400 to-fuchsia-400 p-[3px]">
@@ -256,18 +298,20 @@ export default function Home() {
         <h1 className="mt-5 font-display text-3xl font-black uppercase tracking-widest text-white">
           Snaity
         </h1>
-        <p className="mt-1 text-sm text-zinc-500">@snaity</p>
+        <span className="mt-2 h-0.5 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-fuchsia-400" />
+        <p className="mt-3 text-sm text-zinc-500">@snaity</p>
         <p className="mt-4 max-w-xs text-center text-sm leading-relaxed text-zinc-400">
           Desenvolvedor, criador e streamer. Tecnologia, jogos e música fazem
-          parte do meu código.
+          parte do meu <span className="text-cyan-400">código</span>.
         </p>
 
         <div className="mt-5 flex flex-wrap justify-center gap-2">
           {tags.map((tag) => (
             <span
               key={tag.label}
-              className={`rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide ${accent[tag.accent].border} ${accent[tag.accent].text}`}
+              className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide ${accent[tag.accent].border} ${accent[tag.accent].text}`}
             >
+              {tag.icon}
               {tag.label}
             </span>
           ))}
@@ -318,11 +362,8 @@ export default function Home() {
         </div>
 
         <div className="mt-10 flex flex-col items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md border border-white/15 font-display text-xs font-bold text-zinc-400">
-            S
-          </span>
-          <p className="text-[11px] tracking-widest text-zinc-600">
-            SNAITY • IDEIAS EM CÓDIGO
+          <p className="text-[11px] text-zinc-600">
+            feito com <span className="text-fuchsia-400">💜</span> e muito código
           </p>
           <p className="text-[11px] text-zinc-700">
             © {year} Snaity. Todos os direitos reservados.
