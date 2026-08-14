@@ -27,6 +27,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+
+  /**
+   * Pin the Turbopack workspace root to this project so it doesn't pick up
+   * unrelated lockfiles from parent directories.
+   */
+  turbopack: {
+    root: import.meta.dirname,
+  },
 };
 
 export default nextConfig;
