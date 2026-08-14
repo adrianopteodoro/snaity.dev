@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-const basePath = '/snaity.dev'
-
 type Accent = 'cyan' | 'indigo' | 'fuchsia' | 'pink' | 'red'
 
 const accent: Record<Accent, { border: string; text: string; iconBg: string }> = {
@@ -211,15 +209,42 @@ function ChevronIcon({ className }: { className: string }) {
   )
 }
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Snaity',
+  alternateName: '@snaity',
+  url: 'https://snaity.dev',
+  image: 'https://snaity.dev/avatar.jpg',
+  jobTitle: 'Desenvolvedor & Streamer',
+  description:
+    'Desenvolvedor, criador e streamer. Tecnologia, jogos e música fazem parte do meu código.',
+  sameAs: [
+    'https://discord.gg/WrrxDGT7uV',
+    'https://www.snaityblog.net/',
+    'https://twitch.tv/snaity',
+    'https://www.youtube.com/@SnaityDev',
+    'https://github.com/adrianopteodoro',
+    'https://open.spotify.com/user/snaity',
+    'https://twitter.com/snaity_dev',
+    'https://www.instagram.com/snaity.dev/',
+    'https://www.tiktok.com/@snaity.dev',
+  ],
+}
+
 export default function Home() {
   const year = new Date().getFullYear()
 
   return (
     <main className="flex min-h-screen flex-col items-center px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <div className="flex w-full max-w-md flex-col items-center">
         <div className="rounded-full bg-gradient-to-br from-cyan-400 via-indigo-400 to-fuchsia-400 p-[3px]">
           <Image
-            src={`${basePath}/avatar.jpg`}
+            src="/avatar.jpg"
             alt="snaity"
             width={112}
             height={112}
